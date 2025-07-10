@@ -8,10 +8,8 @@
   body {
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', sans-serif;
     background: black;
     direction: rtl;
-    color: #fff;
     overflow: hidden;
   }
 
@@ -19,9 +17,7 @@
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+    object-fit: cover;
     opacity: 0;
     transition: opacity 1s ease-in-out;
     z-index: -1;
@@ -47,11 +43,11 @@
 <audio id="bg-music" loop>
   <source src="love.mp3" type="audio/mpeg">
 </audio>
-<button style="top:10;" class="music-btn" onclick="startShow()" title="נגן מוזיקה והפעל מצגת">🔊</button>
+<button class="music-btn" onclick="startShow()" title="נגן מוזיקה והפעל מצגת">🔊</button>
 
-<div class="slideshow-layer" id="layer0"></div>
-<div class="slideshow-layer" id="layer1"></div>
-<div class="slideshow-layer" id="layer2"></div>
+<img class="slideshow-layer" id="layer0" src="image1.jpg" alt="">
+<img class="slideshow-layer" id="layer1" src="image2.jpg" alt="">
+<img class="slideshow-layer" id="layer2" src="image3.jpg" alt="">
 
 <script>
   const music = document.getElementById('bg-music');
@@ -61,14 +57,9 @@
     document.getElementById('layer1'),
     document.getElementById('layer2')
   ];
-  let currentImg = 1;
+  let currentImg = 4; // התחל מהתמונה הרביעית
   let currentLayer = 0;
   let isStarted = false;
-
-  // נטען מראש לשלושת השכבות הראשונות
-  layers[0].style.backgroundImage = `url('image${currentImg}.jpg')`; currentImg++;
-  layers[1].style.backgroundImage = `url('image${currentImg}.jpg')`; currentImg++;
-  layers[2].style.backgroundImage = `url('image${currentImg}.jpg')`; currentImg++;
 
   layers[0].style.opacity = 1; // מציגים את הראשונה
 
@@ -81,7 +72,7 @@
       const nextLayer = (currentLayer + 1) % 3;
 
       // טען לתוך השכבה הבאה את התמונה החדשה
-      layers[nextLayer].style.backgroundImage = `url('image${currentImg}.jpg')`;
+      layers[nextLayer].src = `image${currentImg}.jpg`;
       currentImg++; if (currentImg > totalImages) currentImg = 1;
 
       // מעבר: הפוך את השכבה הנוכחית לשקופה ואת השכבה הבאה לגלויה
